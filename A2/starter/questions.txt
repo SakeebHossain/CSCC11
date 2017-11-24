@@ -1,0 +1,147 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CSC C11 - Assignment 2 - Clustering
+%
+% Record here your answers to the questions in the handout for
+% part 2 of the assignment.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COMPLETE THIS TEXT BOX:
+%
+% 1) Student Name: Ahnaf Sakeeb Hossain	
+% 2) Student Name:		
+%
+% 1) Student number: 1001537483
+% 2) Student number:
+% 
+% 1) UtorID hossa171
+% 2) UtorID
+% 
+% We hereby certify that the work contained here is our own
+% Ahnaf Sakeeb Hossain
+% ____________________             _____________________
+% (sign with your name)            (sign with your name)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% EACH ANSWER MUST BE NO MORE THAN 3 LINES OF TEXT - LONGER
+% ANSWERS WILL BE IGNORED
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%  Step 2
+
+1) Which algorithm gives more 'natural' results? (i.e. which produces clusters
+   that more closely approximate what you believe are distinct image regions?)
+
+    K means.
+
+
+
+
+2) Which algorithm gives better clustering results in terms of data similarity?
+   (that means, purely in terms of RGB similarity, not your subjective perception
+   of what makes an image region)
+
+   GMM. K means is sensitive to outliers and only works for blob-like clusters.
+
+3) Which method would you expect to work best in general for RGB clustering,
+   given plots such as the one at the start of this section (the image of London
+   and the corresponding points in RGB space)
+
+   GMM, since low enough dimensionality that it will always be good. 
+
+
+
+4)  What kinds of pre-processing can you think of that would have helped the
+    clustering process (and why would they have helped)?
+
+    Increase contrast in images. Increase brightness in images.
+
+%%  Step 3
+
+1) What is the average sparsity of input vectors? (in [0, 1])
+
+ 0.013377
+
+2) Find what are the 10 most common terms, find what are the 10 least common terms. 
+   (list, separated by commas)
+
+   most common: get, world, go, govern, on, people, year
+   least common: 113bn, 900m, £125m, £59m, £160m, £197bn, pariba, propel, 75bn, £57bn
+   
+3) What is the average frequency for non-zero vector entries?
+
+   44.196
+
+%% Step 3.1
+
+1) What is the size of each cluster? (list numbers, comma separated)
+
+282, 358, 260, 252, 273
+
+2) Does the clustering make sense?
+
+   Nope!
+
+3) What is the topic for each cluster? (list, comma separated)
+
+   There are no distinguishable topics.
+
+4) What factors make clustering difficult?
+
+   overlap in data, sparsity of data, high dimensionality.
+
+5) Will we get better results with a lucky initial guess for cluster centers?
+   (yes/no and a short explanation of why)
+
+   No
+   
+%% Step 3.2
+
+1) What problem from 3.1 is solved now?
+
+Words are now more related. Smaller, more refined clusters.
+
+2) What is the size of each cluster?
+
+199, 185, 185, 218, 221
+
+3) Does the clustering make sense?
+
+A bit more...
+
+4) What are the topics for clusters?
+
+Technology? Still hard to distinguish.
+
+5) Is the result better or worse? (give a short explanation as well)
+
+Slightly better, the words in each cluster seem more related, however there
+is not much difference between clusters.
+
+%% Step 3.3
+
+1) What are the sizes for clusters now?
+
+109, 95, 105, 130, 156
+
+2) Does the clustering make sense?
+
+Somewhat more, yes.
+
+3) What are the topics for clusters?
+
+Technology and politics.
+
+4) Why is the clustering better now?
+
+data is made less sparse by diffusion.
+
+5) What is the general lesson you learned in clustering sparse, high-dimensional
+   data?
+
+   It is difficult to do accurately (curse of dimensionality).
+   
+%%%%%%%%%%%%% End of questions %%%%%%%%%%%%%%%%%%%%%%%%%%%%
