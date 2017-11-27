@@ -67,7 +67,7 @@ covariances=zeros([D D k]); % One covariance maxtrix for each cluster.
 % Each convariance matrix is initialized as a DxD identity matrix.                            
 for i=1:k
  covariances(:,:,i)=eye(size(data,2),size(data,2));
-end;
+end
 
 
 if (isempty(cent_init))
@@ -88,12 +88,12 @@ if (isempty(cent_init))
   centers = data( kRandomIndices(1:k), : );
     
 else
-  if (size(cent_init,1)~=k | size(cent_init,2)~=size(data,2))
+  if (size(cent_init,1)~=k || size(cent_init,2)~=size(data,2))
     fprintf(2,'Initial centers array has wrong dimensions.'\n');
     return;
-  end;
+  end
   centers=cent_init;
-end; 
+end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -116,18 +116,18 @@ end;
 %   wait that long.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- count = 0;
+
  while 1 
    disp(centers);
    disp("-------------------------");
-   fflush(stdout);
+
    
    %%%%%%% Estimation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%
    
    % Calculate how much "responsibility" is assigned to each point by
    % each Gaussian.
 
-#{   
+%{   
    m = [];
    % Iterate through each cluster...
    for i=1:k
@@ -138,26 +138,21 @@ end;
      b = constant.*exp(exponent)
      m = [m ; b]
    end;
-#}
+%}
   m = [];
   for i=1:k
     constant = mps(i)*1/sqrt(det(covariances(:,:,i))*(2*pi)^D);
     b = [];
     for j=1:N
       exponent = (-1/2)*(data(j,:)-centers(i,:))*inv(covariances(:,:,i))*(data(j,:)-centers(i,:))';
-      b = [b; exponent];
-    end;
+      b=[b; exponent];
+    end
     b = constant * b;
-    m = [m, b];
-  end;
+    m=[m, b];
+  end
       
-      
-
-   m_T = m';
-   m_row_sums = sum(m_T);
-   expectation = m_T ./ m_row_sums;
-   expectation = expectation';
-   
+   m_row_sums = (sum(m,2));
+   expectation = m ./ m_row_sums;
    
    %%%%%%% Maximization step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    
@@ -168,7 +163,7 @@ end;
    for i=1:k
      scalars = expectation(:, i);
      centers(i, :) = sum(scalars .* data) ./ sum(scalars);
-   end;
+   end
    
    
    % Recalculate covariance
@@ -179,19 +174,19 @@ end;
          dist = data(j,:) - centers(i,:); % has size N x D
          dist = scalars(j) .* dist' * dist; % now D x D
          cov = cov + dist;
-     end;
+     end
      covariances(:,:,i) = cov ./ sum(scalars)  ; % has size D x D
-   end;
-   
+   end
+  
    % Assign labels.
    
    old_labels = labels(:);
    
    for i=1:N
      row = expectation(i, :);
-     [maxi, idx] = max(row);  % choose the gaussian which i contributes to the most
+     [~, idx] = max(row);  % choose the gaussian which i contributes to the most
      labels(i) = idx; % should be a value between 1 and k. 
-   end;
+   end
      
    if isequal(labels, old_labels)
      break
