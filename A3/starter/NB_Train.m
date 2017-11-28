@@ -59,3 +59,70 @@ function [NB_probs, NB_ais]=NB_Train(training_data, training_labels, K)
 %                any zeros with a tiny value such as 1e-9
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% calculate class priors by counting up how many times a specific
+% label shows up divided by total no. of labelled data points.
+% as a reminder, this is asking: what is the probability of being a banana?
+
+N = size(training_data, 1)  % no. training_data points
+D = size(training_data, 2)  % no. dimensions of in a data point
+
+% identify unique members of training_labels. These are our labels.
+labels = unique(training_data); 
+
+% this vector will store no. instance of each label we see in training data.
+label_counts = zeros(K,1);
+
+% count no. instances of each label in training data and store.
+%for i=i:K
+%  label_counts(i) = nnz(training_labels==labels(i));
+%end
+
+ 
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% calculate late evidence probabilities. Count up the number of times 
+% an attribute shows up divided by total number of data points. This is 
+% just asking, what is the liklihood of being sweet?
+
+
+% m = kxd matrix counting how many times dth dim shows up for class k
+m = zeros(K, D);
+
+for i=1:N
+  
+  label = training_label(i);
+  data_point = training_data(i);
+ 
+  for j=K
+    if training_label(j) == label
+      label_counts(j) += 1;
+      index_label = j;
+      break;
+    end
+  end
+ 
+  for index_dimension=1:D
+    m[index_label][index_dimension] += 1
+  end
+  
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% calculate conditional probabilities by couting up for each label/class,
+% how many times an attribute shows up for a specific label divided by
+% the total no. of occurances of that label. As a reminder, this is asking: 
+%given you are a banana, what is the probabilty it is sweet? 
+
+%%%%%%%% outputs %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% NB_probs: this is essentially the conditional probabilities in a matrix form.
+% let's break it down. It is a kxD matrix, where k represents a class/label and
+% D represents an attribute/feature. so NB_probs[k][D] must contain a single
+% number telling us the probability P(having feature D | being class k).
+NB_ais = label_counts ./ N; 
+
+% NB_ais: kx1, tells us P(L=i)... that's what the description says. What
+% this is essentially just the prior probabilities for each class.
+NB_probs = m ./ label_counts;
