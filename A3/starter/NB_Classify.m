@@ -23,17 +23,17 @@ function [labels]=NB_Classify(input_data, NB_probs, NB_ais)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COMPLETE THIS TEXT BOX:
 %
-% 1) Student Name: Ahnaf Sakeeb Hossain
+% 1) Student Name:		
 % 2) Student Name:		
 %
-% 1) Student number: 1001537483
+% 1) Student number:
 % 2) Student number:
 % 
-% 1) UtorID hossa171
+% 1) UtorID
 % 2) UtorID
 % 
 % We hereby certify that the work contained here is our own
-% Ahnaf Sakeeb Hossain
+%
 % ____________________             _____________________
 % (sign with your name)            (sign with your name)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -48,3 +48,22 @@ function [labels]=NB_Classify(input_data, NB_probs, NB_ais)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% for each point, calculate the probability it is a member of each class.
+% choose the one that is the highest!
+
+probs = zeros(N, K);  % stores the probability that data point K belongs to class K
+
+% iterate through each point and calculate its probability
+for i=1:N
+  data_point = input_data(i,:);  % will be computing the probability of this point for each cluster
+  for j=1:K
+    included_probs = data_point .* NB_prob(j, :);  % find the row in NB_prob; this tells us the probs each attribute belong the kth class
+    prob = 1;
+    for k=1:size(included_probs, 1)
+      if data_point(k) != 0
+        prob = prob * included_probs(k);
+      end
+    end
+    probs(i,j) = prob * NB_ais(j);
+  end 
+end

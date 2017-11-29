@@ -45,3 +45,51 @@ function [centers,covs,ais]=GCC_train(train_data,train_labels,K);
 %        this should be fairly similar to your GMMs from A2!
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Remember: the whole idea behind GMM is to learn the mean and covariance
+% of the Gaussians that maximize the probability of the data. 
+% Since we have input data, we can use these to initialize those parameters
+% directly.
+
+N=size(train_data, 1);
+D=size(train_data, 2);
+
+% coefficients: for each label, count how many instances we have of that
+% label and just divide by the total number of data points.
+labels = unique(train_labels);
+num_unique_labels = size(labels, 1);
+
+labels_count = zeros(num_unique_labels,1);
+
+for i=1:size(labels, 1)
+  labels_count(i) = nnz(train_labels==labels(i));
+end
+
+ais = labels_count ./ N;
+
+% centers: take an average of all data points of your label
+center_totals = zeros(size(labels, 1),D);
+
+for i=1:N
+  data_point = train_data(i,:);
+  data_label = train_labels(i);
+  center_totals(data_label, :) += data_point; 
+end
+
+centers = center_totals ./ labels_count;
+
+
+% covariances: go through all data points for your label and calcutate the
+% distance matrix. Sum them all up and divide them by number of points for your label.
+
+cov_sum = zeros([D D num_unique_labels]);
+for i=1:N
+  
+  data_point = train_data(i,:);  % grab data point
+  data_label = train_labels(i);  % get that data point's label
+  center = centers(data_label, :); % get the center for that data point
+  cov=(data_point - center)*(data_point - center)'; % make a covariance matrix to store this rounds calculation
+  cov_sum(:,:,label) += cov; % add to rest of covs for that label
+end
+
+covs = cov_sum ./ labels_count;

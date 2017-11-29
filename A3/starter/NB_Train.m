@@ -114,23 +114,8 @@ end
 % let's break it down. It is a kxD matrix, where k represents a class/label and
 % D represents an attribute/feature. so NB_probs[k][D] must contain a single
 % number telling us the probability P(having feature D | being class k).
-NB_ais = label_counts ./ N; 
+NB_probs = m ./ label_counts;
 
 % NB_ais: kx1, tells us P(L=i)... that's what the description says. What
 % this is essentially just the prior probabilities for each class.
-NB_probs = m ./ label_counts;
-
-
-% count no. instances of each label in training data and store.
-%for i=i:K
-%  label_counts(i) = nnz(training_labels==labels(i));
-%end
-
-
-  %for j=K
-   % if training_label(j) == label
-    %  label_counts(j) += 1;
-     % index_label = j;
-      %break;
-    %end
-  %end
+NB_ais = label_counts ./ N; 

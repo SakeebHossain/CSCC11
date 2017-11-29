@@ -45,3 +45,31 @@ function [labels]=GCC_Classify(input_data,centers,covs,ais);
 %        familiar to you from your GMMs
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% go through each point and compute the probability with each gaussian.
+% choose the one that gives the highest probability.
+
+N=size(input_data, 1);  % number of data points
+D=size(input_data, 2);  % number of dimensions in data
+K=size(centers, 1);  % number of labels
+
+% a matrix that tells us how much the Nth data point is represented by the Kth matrix
+probs = zeros(N, K);  
+
+for i=1:N
+  for j=1:K
+    constant = ais(j)*1/sqrt(det(covariances(:,:,j))*(2*pi)^D); 
+    exponent = (-1/2)*(data(i,:)-centers(j,:))*inv(covariances(:,:,i))*(data(i,:)-centers(j,:))';
+    prob(i,j) = constant^exponent; 
+end
+
+
+
+% for each row in probs, select the row with the highest probability.
+labels = zeros(N,1);
+
+for i=1:N
+  row = probs(i,:);
+  [~, idx] = max(row);  % choose the gaussian which i contributes to the most
+  labels(i) = idx;
+end
