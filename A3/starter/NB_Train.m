@@ -24,17 +24,17 @@ function [NB_probs, NB_ais]=NB_Train(training_data, training_labels, K)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COMPLETE THIS TEXT BOX:
 %
-% 1) Student Name:		
+% 1) Student Name: Ahnaf Sakeeb Hossain
 % 2) Student Name:		
 %
-% 1) Student number:
+% 1) Student number: 1001537483
 % 2) Student number:
 % 
-% 1) UtorID
+% 1) UtorID hossa171
 % 2) UtorID
 % 
 % We hereby certify that the work contained here is our own
-%
+% Ahnaf Sakeeb Hossain
 % ____________________             _____________________
 % (sign with your name)            (sign with your name)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,12 +72,6 @@ labels = unique(training_data);
 % this vector will store no. instance of each label we see in training data.
 label_counts = zeros(K,1);
 
-% count no. instances of each label in training data and store.
-%for i=i:K
-%  label_counts(i) = nnz(training_labels==labels(i));
-%end
-
- 
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -91,22 +85,21 @@ m = zeros(K, D);
 
 for i=1:N
   
+  % grab the current data point and its label.
   label = training_label(i);
   data_point = training_data(i);
+  
+  % increase the count of occurance of that label.
+  index_label = find(labels == label)
+  label_counts(index_label) += 1
  
-  for j=K
-    if training_label(j) == label
-      label_counts(j) += 1;
-      index_label = j;
-      break;
-    end
-  end
- 
+  % increase the count of occurance of each feature for that label.
   for index_dimension=1:D
     m[index_label][index_dimension] += 1
   end
   
 end
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -126,3 +119,18 @@ NB_ais = label_counts ./ N;
 % NB_ais: kx1, tells us P(L=i)... that's what the description says. What
 % this is essentially just the prior probabilities for each class.
 NB_probs = m ./ label_counts;
+
+
+% count no. instances of each label in training data and store.
+%for i=i:K
+%  label_counts(i) = nnz(training_labels==labels(i));
+%end
+
+
+  %for j=K
+   % if training_label(j) == label
+    %  label_counts(j) += 1;
+     % index_label = j;
+      %break;
+    %end
+  %end

@@ -24,7 +24,7 @@ function [LowDim_data,V,mu]=datasetPCA(input_data, k);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COMPLETE THIS TEXT BOX:
 %
-% 1) Student Name: 
+% 1) Student Name: Ahnaf Sakeeb Hossain
 % 2) Student Name:		
 %
 % 1) Student number: 1001537483

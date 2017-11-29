@@ -23,17 +23,17 @@ function [labels]=GCC_Classify(input_data,centers,covs,ais);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % COMPLETE THIS TEXT BOX:
 %
-% 1) Student Name:		
+% 1) Student Name: Ahnaf Sakeeb Hossain
 % 2) Student Name:		
 %
-% 1) Student number:
+% 1) Student number: 1001537483
 % 2) Student number:
 % 
-% 1) UtorID
+% 1) UtorID hossa171
 % 2) UtorID
 % 
 % We hereby certify that the work contained here is our own
-%
+% Ahnaf Sakeeb Hossain
 % ____________________             _____________________
 % (sign with your name)            (sign with your name)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

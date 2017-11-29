@@ -120,7 +120,7 @@ end
  while 1 
    disp(centers);
    disp("-------------------------");
-
+   fflush(stdout);
    
    %%%%%%% Estimation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%
    
