@@ -107,5 +107,5 @@ for i=1:num_unique_labels
       cov_ = (data_i(j,:) - centers(i,:))*(data_i(j,:) - centers(i,:))';
       cov_i = cov_i + cov_;
   end
-  covs(:,:,i) = cov_i ./ labels_count(labels(i)+1);
+  covs(:,:,i) = cov_i ;
 end

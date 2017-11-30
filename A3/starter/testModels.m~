@@ -1,0 +1,5 @@
+function [La]=testModels()
+
+data=load("BBC_classification.mat");
+trainData=data.TrainData;
+trainClasses=data.TrainClasses;
