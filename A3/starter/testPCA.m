@@ -56,5 +56,3 @@ title('Reconstruction from first 2 PCA components');
 subplot(1,2,2)
 imagesc(im);axis image;axis off;
 
-plo
-
