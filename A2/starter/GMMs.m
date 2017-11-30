@@ -120,7 +120,6 @@ end
  while 1 
    disp(centers);
    disp("-------------------------");
-   fflush(stdout);
    
    %%%%%%% Estimation step %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%
    
@@ -144,7 +143,7 @@ end
     constant = mps(i)*1/sqrt(det(covariances(:,:,i))*(2*pi)^D);
     b = [];
     for j=1:N
-      exponent = (-1/2)*(data(j,:)-centers(i,:))*inv(covariances(:,:,i))*(data(j,:)-centers(j,:))';
+      exponent = (-1/2)*(data(j,:)-centers(i,:))*inv(covariances(:,:,i))*(data(j,:)-centers(i,:))';
       b=[b; exponent];
     end
     b = constant * b;

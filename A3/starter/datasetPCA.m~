@@ -48,49 +48,43 @@ function [LowDim_data,V,mu]=datasetPCA(input_data, k);
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% clean data?? (zero mean, feature selection...)
+% Normalize image
+im=input_data; %%%%%%%%%%%%%%
+
+im=double(im);
+im=im-min(im(:));
+im=im/max(im(:));
+imS=size(im);
+figure(1);clf;image(im);axis image;title('Input Image');
+
+% Now, reshape the image into an array of (m * n, 3), where each row has
+% the RGB values for one image pixel
+im=reshape(im,[imS(1)*imS(2) 3]);
+
+input_data = im; %%%%%%%%%%%%%%%
+
 % sum up all data vectors. This is our average (needed for creation
 % of covariance matrix.
 N=size(input_data,1);
 D=size(input_data,2);
 mu=sum(input_data)/N;
 
+
+
 % create covariance matrix
 K = cov(input_data - mu);
 
 % compute eigenvectors and eigenvalues
 [V,~] = eigs(K, k);  % V is eigenvectors, 
-LowDim_data = (V'*(input_data-mu)')';
+LowDim_data = zeros(N, k);
 
-%-------------------------------
+% for i=1:N
+%     current_y = input_data(i, :);
+%     new_y = V' * (current_y - mu)';
+%     LowDim_data = [LowDim_data; new_y']; 
+% end
 
-% % PCA step 1 - compute the mean of the data, and subtract
-% % the mean from all input vectors
-% im3=input_data;
-% mu=mean(im3);
-% im3=im3-repmat(mu,[size(im3,1) 1]);
-% 
-% % PCA step 2 - Compute the covariance matrix - have a look 
-% % at it! the off-diagonal entries are fairly large, indicating
-% % a significant correlation between R, G, and B
-% cv=cov(im3);
-% 
-% % PCA step 3 - Compute the eigenvectors and eigenvalues of 
-% % the covariance matrix. Sort them by decreasing magnitude of
-% % the eigenvalue. Take a look at the eigenvectors and think
-% % about what they tell you in terms of what directions 
-% % contain the most information in the image.
-% [v,e]=eig(cv);
-% e=diag(e);
-% [~,ii]=sort(-e);
-% v=v(:,ii);
-% e=e(ii);
-% 
-% % PCA step 4 - Obtain PCA coefficients for each pixel by 
-% % projecting onto the matrix whose columns are the sorted
-% % eigenvectors of the covariance matrix.
-% imPCa=(v'*im3')';
-% 
-% LowDim_data=imPCa;
-% V=v;
-% 
+LowDim_data = 
+
 
